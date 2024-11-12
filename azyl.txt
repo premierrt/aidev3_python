@@ -1,0 +1,39 @@
+
+AI_Dev
+7d
+
+I'm here to help
+Michał Jarończyk wyszperałem że programujesz w Pythonie. No więc kiedy już dostaniesz się do Azylu przez SSH, to możesz tam sobie postawić serwer - swoje API. 
+
+Azyl został pomyślany po to, żebyś nie musiał szukać hostingu. 
+
+Podczas logowania, widzisz: 
+
+
+Oczywiście, jest tam Twój numer portu i Twój adres URL. 
+
+Napisałem taki prosty skrypt w Pythonie:
+
+import os
+import http.server
+import socketserver
+
+# Get the port from the environment variable, or use a default of 3000
+PORT = int(os.getenv("PORT", 3000))
+
+# Create a request handler class
+class Handler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/plain")
+        self.end_headers()
+        self.wfile.write(b"Hello, World!")
+
+# Create and start the server
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print(f"Serving at port {PORT}")
+    httpd.serve_forever()
+Możesz go zapisać na Azylu np. jako `app.py` i wywołać podając wcześniej swój numer portu:
+
+PORT=50005 python3 app.py
+W przykładzie powyżej ja podałem swój numer, Ty zmień na swój. Wtedy możesz zobaczyć wynik działania swojej aplikacji pod adresem URL. Mój to: https://azyl-50005.ag3nts.org (obecnie nic tam nie działa). Swój widzisz podczas logowania. Wejdź na ten adres i zobaczysz wynik działania powyższego kodu. 

@@ -1,0 +1,7 @@
+W podanym zdaniu zamień każde wystąpienie słów imię + nazwisko, nazwę ulicy + numer, miasto, wiek osoby na słowo CENZURA.
+Nie możesz zmieniać składni, interpunkcji, białych znaków.
+Przykład:
+Zdanie:
+Osoba podejrzana to Andrzej Mazur. Adres: Gdańsk, ul. Długa 8. Wiek: 29 lat.
+Zamień na:
+Osoba podejrzana to CENZURA. Adres: CENZURA, ul. CENZURA. Wiek: CENZURA lat.
