@@ -1,0 +1,6 @@
+payload = {
+    // ... existing payload parameters ...
+    'temperature': 0.5,  # Dodajemy parametr temperatury
+}
+headers = {'Content-Type': 'application/json'}
+response = requests.post(answer_url, headers=headers, data=json.dumps(payload), verify=False) 
