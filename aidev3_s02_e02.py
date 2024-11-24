@@ -34,13 +34,14 @@ def analyze_image(image_path):
         
         # Wysłanie zapytania do API OpenAI
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",  
+            temperature=0.1,
             messages=[
                 {
                     "role": "user",
                     "content": [
                         {"type": "text", 
-                         "text": "Opisz co widzisz na tym obrazie."},
+                         "text": "Obraz przedstawi fragment mapy miasta. Zwróc uwagę na nazwy ulicy, przystanki komunikacji miejskiej ich lokalizację, linie kolejowe, stacje kolejowe, obiekty architektury miejskiej, skrzyżowania dróg. Opisz co widzisz na tym obrazie uwzględniając moje wskazówki dotyczące obrazu."},
                         {
                             "type": "image_url",
                             "image_url": {
@@ -127,6 +128,42 @@ def analyze_all_images_in_directory(directory_path: str) -> list[str]:
     return ai_responses_opis_rysunkow
 
 
+def ask_gpt(system_prompt, question):
+    client = OpenAI()
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        temperature=0.1,
+        messages=[{
+            "role": "system",
+            "content": system_prompt
+        },
+        {
+            "role": "user",
+            "content": question
+        }]
+    )
+    return response.choices[0].message.content
+
+
+def read_file_to_string(file_path: str) -> str:
+    """
+    Wczytuje zawartość pliku tekstowego do stringa.
+    
+    Args:
+        file_path (str): Ścieżka do pliku wejściowego
+        
+    Returns:
+        str: Zawartość pliku jako string
+        
+    Raises:
+        IOError: Gdy wystąpi błąd podczas odczytu pliku
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read()
+    except IOError as e:
+        raise IOError(f"Błąd podczas odczytu pliku: {str(e)}")
+
 # Przykład użycia:
 if __name__ == "__main__":
     output_file = "opisy_obrazow.txt"
@@ -148,3 +185,16 @@ if __name__ == "__main__":
         opisy = analyze_all_images_in_directory(image_path)
         save_list_to_file(opisy, output_file)
         print(f"Zapisano opisy do pliku {output_file}")
+    else:
+        conxtext = read_file_to_string(output_file)
+        print(conxtext)
+        system_prompt_intro = "Poniżej znajdziesz opis czterech fragmentów map miasta."
+        combined_prompt = f"{system_prompt_intro}\n\n{conxtext}"
+
+        question = """ 
+        
+        Podaj nazwę miasta w polsce w którym występują te ulice, skrzyżowani i inne obiekty z danych? W tym mieście występują też spichlerze i twierdze.
+
+        """
+        print(ask_gpt(combined_prompt, question))
+

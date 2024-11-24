@@ -1,4 +1,78 @@
-Na obrazie widać mapę okolicy, która jest przedstawiona w stylu graficznym, przypominającym starą kartę. Mapa pokazuje kilka ulic i nazw miejscowości, takich jak "Kalinowa," "Brzeżna," "Chopin," i "Chelmńskie." Ulice są zaznaczone w ciemniejszym odcieniu, a w niektórych miejscach umieszczono symbole, które mogą wskazywać lokalizacje interesujące. Tło mapy ma teksturę przypominającą papier, co dodaje charakterystycznego wyglądu. Całość sprawia wrażenie, jakby mapę odnaleziono w starym archiwum.
-Na obrazie widoczna jest mapa, która przedstawia plan obszaru z wyraźnym zaznaczeniem drogi, oznaczonej jako "534". W centralnej części mapy znajduje się symbol cmentarza, opisany jako "Cmentarz ewangelicko-auguburski". Wokół niego widoczne są różne linie, które mogą reprezentować ulice lub szlaki. Tło mapy ma lekko teksturowaną powierzchnię, przypominającą papier, z zawartością kolorowych plamek. Na mapie można również dostrzec nazwy ulic, takie jak "Parzyjna", co może sugerować lokalizację w mieście lub okolicy.
-Na obrazie widoczna jest mapa, na której zaznaczone są ulice. Widać nazwy ulic: Kalinowskie, Stroma oraz Władysława Reymonta. Mapa ma szary kolor i wydaje się, że jest w stylu starych map, z delikatnymi detalami i teksturą przypominającą papier. Ulice są przedstawione w formie prostych linii, a w niektórych miejscach są oznaczone zaczernione obszary, które mogą sugerować budynki. Całość ma minimalistyczny i stonowany wygląd.
-Na obrazie widoczna jest mapa w stylu minimalistycznym, przedstawiająca kilka ulic oraz punktów usługowych. Mapa ma kremową, teksturowaną tło, co nadaje jej styl vintage. Na mapie oznaczone są ulice, takie jak Twardowkiego, Dworska, Sadowa i Lewiatan. Wskazano także miejsca, takie jak "Żabka" i "Lush Massage", które mogą wskazywać na lokale handlowe lub usługowe w okolicy. Całość jest w odcieniach szarości z elementami bieli i czerni, a niektóre obszary są lekko rozmyte.
+Na mapie widoczne są następujące elementy:
+
+1. **Ulice**:
+   - Kalinkowa
+   - Brzeźna
+   - Chełmińska
+   - Chopina
+
+2. **Przystanki komunikacji miejskiej**:
+   - Dwa przystanki znajdują się w pobliżu ulicy Chełmińskiej.
+
+3. **Linie kolejowe**:
+   - Linia kolejowa biegnie wzdłuż ulicy Chełmińskiej.
+
+4. **Skrzyżowania dróg**:
+   - Skrzyżowanie ulic Chełmińskiej i Brzeźnej.
+   - Skrzyżowanie ulic Chełmińskiej i Chopina.
+
+5. **Obiekty architektury miejskiej**:
+   - W pobliżu ulicy Chełmińskiej znajdują się budynki, które mogą być obiektami architektury miejskiej.
+
+Mapa przedstawia fragment miasta z zaznaczonymi kluczowymi elementami infrastruktury.
+Na mapie widoczny jest fragment miasta z kilkoma istotnymi elementami:
+
+1. **Ulice**: 
+   - Ulica Cmentarna biegnie poziomo przez dolną część mapy.
+   - Ulica Parkowa przebiega pionowo po prawej stronie mapy.
+
+2. **Obiekty architektury miejskiej**:
+   - Cmentarz ewangelicko-augsburski znajduje się w centralnej części mapy.
+
+3. **Przystanki komunikacji miejskiej**:
+   - Dwa przystanki są zaznaczone wzdłuż ulicy oznaczonej numerem 534 po lewej stronie mapy.
+
+4. **Skrzyżowania dróg**:
+   - Skrzyżowanie ulicy Cmentarnej z ulicą oznaczoną numerem 534.
+   - Skrzyżowanie ulicy Parkowej z innymi drogami w pobliżu cmentarza.
+
+Nie ma widocznych linii kolejowych ani stacji kolejowych na tej mapie.
+Na fragmencie mapy miasta widoczne są następujące elementy:
+
+1. **Ulice**:
+   - Kalinowska
+   - Konstantego Ildefonsa Gałczyńskiego
+   - Stroma
+   - Władysława Reymonta
+
+2. **Przystanek komunikacji miejskiej**:
+   - Zlokalizowany przy ulicy Kalinowskiej.
+
+3. **Skrzyżowania dróg**:
+   - Skrzyżowanie ulic Kalinowskiej i Konstantego Ildefonsa Gałczyńskiego.
+   - Skrzyżowanie ulic Stroma i Władysława Reymonta.
+
+Na mapie nie widać linii kolejowych ani stacji kolejowych. Nie ma również zaznaczonych obiektów architektury miejskiej.
+Na mapie widoczne są następujące elementy:
+
+1. **Ulice**:
+   - Twardowskiego
+   - Bocznia
+   - Dworska
+   - Słomiana
+   - Sawedzka
+
+2. **Przystanki komunikacji miejskiej**:
+   - Przystanek oznaczony symbolem autobusu znajduje się przy ulicy Twardowskiego, w pobliżu sklepu Lewiatan.
+   - Kolejny przystanek znajduje się przy ulicy Bocznia, w pobliżu sklepu Żabka.
+
+3. **Obiekty architektury miejskiej**:
+   - Sklep Żabka przy ulicy Bocznia.
+   - Sklep Lewiatan przy ulicy Twardowskiego.
+   - Lush Massage przy ulicy Twardowskiego.
+
+4. **Skrzyżowania dróg**:
+   - Skrzyżowanie ulic Twardowskiego i Bocznia.
+   - Skrzyżowanie ulic Dworska i Słomiana.
+
+Na mapie nie ma widocznych linii kolejowych ani stacji kolejowych.
