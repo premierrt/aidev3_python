@@ -75,15 +75,35 @@ def str_to_bool(text: str) -> bool:
     else:
         raise ValueError(f"Nieprawidłowa wartość: '{text}'. Dozwolone wartości to 'true' lub 'false'")
 
+def append_to_file(file_path: str, text: str) -> None:
+    """
+    Dopisuje tekst na końcu pliku.
+    
+    Args:
+        file_path (str): Ścieżka do pliku
+        text (str): Tekst do dopisania
+    """
+    try:
+        with open(file_path, 'a', encoding='utf-8') as file:
+            file.write(text + '\n')
+    except IOError as e:
+        print(f"Błąd podczas zapisywania do pliku {file_path}: {e}")
 
 
 if __name__ == "__main__":
+    wynik_transkrypcji_path = "/home/rafal/wynik_transkrypcji_mp3.txt"
+    
     katalog_path = "/home/rafal/Pobrane/pliki_z_fabryki/"
     pliki = get_files_by_extension( katalog_path , "mp3")
     for plik_nazwa in pliki:
         plik_sciezka =  f"{katalog_path}{plik_nazwa}"
         print(plik_sciezka)
+        transkrypacja = process_mp3_file(plik_sciezka)
+        print(transkrypacja)
+        append_to_file(wynik_transkrypcji_path, transkrypacja)
     slownik = {}
-  #  transkrypacja = process_mp3_file(testowy_mp3)
+  #  
     
   #  slownik[testowy_mp3] = str_to_bool(aiFindInformation())
+  #prompt moze zwroic json true/false
+  
