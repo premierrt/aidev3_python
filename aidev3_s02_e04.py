@@ -44,11 +44,46 @@ def process_mp3_file(filePath):
     model="whisper-1", 
     file=audio_file
     )
-    print(transcription.text)
+    return transcription.text
+
+def aiFindInformation(system_prompt, prompt):
+    client = OpenAI()
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        temperature=0.3,
+        messages=[{
+            "role": "system",
+            "content": system_prompt
+        },
+        {
+            "role": "user",
+            "content": prompt
+        }]
+    )
+    return response.choices[0].message.content
+
+def str_to_bool(text: str) -> bool:
+    """
+    Konwertuje tekst 'true' lub 'false' na wartość logiczną.
+    Rzuca ValueError dla nieprawidłowych wartości.
+    """
+    text = text.lower()
+    if text == 'true':
+        return True
+    elif text == 'false':
+        return False
+    else:
+        raise ValueError(f"Nieprawidłowa wartość: '{text}'. Dozwolone wartości to 'true' lub 'false'")
+
+
 
 if __name__ == "__main__":
     katalog_path = "/home/rafal/Pobrane/pliki_z_fabryki/"
-    pliki_mp3 = get_files_by_extension( katalog_path , "mp3")
-    testowy_mp3 =  f"{katalog_path}{pliki_mp3[0]}"
-    print(testowy_mp3)
-    process_mp3_file(testowy_mp3)
+    pliki = get_files_by_extension( katalog_path , "mp3")
+    for plik_nazwa in pliki:
+        plik_sciezka =  f"{katalog_path}{plik_nazwa}"
+        print(plik_sciezka)
+    slownik = {}
+  #  transkrypacja = process_mp3_file(testowy_mp3)
+    
+  #  slownik[testowy_mp3] = str_to_bool(aiFindInformation())
