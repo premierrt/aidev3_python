@@ -1,5 +1,6 @@
 import os
-from aidevs3_lib_rt import ask_gpt
+from aidevs3_lib_rt import *
+
 
 
 ###
@@ -266,7 +267,7 @@ def print_keywords_data(keywords_data: list):
             print("values:", ", ".join(keywords))
 
 if __name__ == "__main__":
-    ### zrzucenie keywords do plików
+   ### zrzucenie keywords do plików
    # processTextFiles(raporty_path, raporty_keywords_path, prompt)
    # processTextFiles(fakty_path, fakty_keyword_path, prompt)
    # appendMetaDataFromFileName(raporty_path, raporty_keywords_path)
@@ -280,9 +281,63 @@ if __name__ == "__main__":
    fakty = load_keywords_fact_files (fakty_keyword_path)
    print_keywords_data(fakty)
 
-   #dla kazdego elmentu tablicy z raportami wywolaj gpt zeby zwrocil jsona z naziwskiem i imieniem
-   #przeiteruj przez wszystkie elementy z tablicy z faktami i zajrzyj do klucza czy jest taki. 
-   #jesli jest to zwroc fakty i doklej do wyniku...
+   odpowiedz = {}  # Initialize the dictionary to store results
+   
+   for raport in raporty:
+        for filename, keywords in raport.items():
+            # Get name and sector from keywords using GPT
+            content = ask_gpt_json_format(find_name_prompt, ' '.join(keywords))
+            # Dodaj parsowanie JSON-a
+            if isinstance(content, str):
+                import json
+                try:
+                    content = json.loads(content)
+                except json.JSONDecodeError:
+                    print(f"Błąd parsowania JSON dla {filename}")
+                    continue
+                    
+            print(f"Przetwarzam raport: {filename}")
+            print(f"Znalezione dane: {content}")
+            
+            matching_keywords = []
+            
+            # Convert search terms to lowercase for case-insensitive comparison
+            person_name = content.get('name', '').lower() if content.get('name') else None
+            sector = content.get('sector', '').lower() if content.get('sector') else None
+            
+            for fact_dict in fakty:
+                for fact_filename, fact_keywords in fact_dict.items():
+                    # Join keywords and convert to lowercase for comparison
+                    fact_text = ' '.join(fact_keywords).lower()
+                    
+                    # Check if either name or sector matches
+                    is_match = False
+                    if person_name and person_name in fact_text:
+                        is_match = True
+                    if sector and sector in fact_text:
+                        is_match = True
+                        
+                    if is_match:
+                        # Add unique keywords from matching facts
+                        matching_keywords.extend(kw.strip() for kw in fact_keywords if kw.strip() not in matching_keywords)
+            
+            if matching_keywords:
+                print(f"Znalezione powiązane słowa kluczowe dla {content}:")
+                print(matching_keywords)
+                # Combine with original keywords and remove duplicates
+                combined_keywords = list(set(keywords + matching_keywords))
+                print(f"Połączone słowa kluczowe:")
+                print(combined_keywords)
+                
+                # Store results as comma-separated string instead of list
+                odpowiedz[filename] = ', '.join(combined_keywords)
+            else:
+                # If no matching keywords were found, store original keywords as string
+                odpowiedz[filename] = ', '.join(keywords)
+
+   print("\nFinal dictionary of results:")
+   print(odpowiedz)
+   send_answer(odpowiedz, "dokumenty")
 
 
 
