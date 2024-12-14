@@ -1,6 +1,7 @@
 
 
 import json
+import os
 from openai import OpenAI
 import requests
 
@@ -64,3 +65,76 @@ def send_answer(object_data, task_name):
     # Print the response from the server
     print("Status Code:", response.status_code)
     print("Response Body:", response.text)
+
+
+def get_files_by_extension(directory_path: str, extension: str) -> list:
+    """
+    Returns a list of files with the specified extension from the given directory.
+    
+    Args:
+        directory_path (str): Path to the directory to search in
+        extension (str): File extension to filter (e.g., '.txt', '.mp3')
+    
+    Returns:
+        list: List of filenames with the specified extension
+    """
+    # Ensure extension starts with a dot
+    if not extension.startswith('.'):
+        extension = '.' + extension
+    
+    # List to store matching files
+    matching_files = []
+    
+    try:
+        # Iterate through files in the directory
+        for filename in os.listdir(directory_path):
+           # print (filename)
+            # Check if the file ends with the specified extension
+            if filename.lower().endswith(extension.lower()):
+                matching_files.append(filename)
+                
+        return matching_files
+    
+    except FileNotFoundError:
+        print(f"Directory not found: {directory_path}")
+        return []
+    except PermissionError:
+        print(f"Permission denied to access directory: {directory_path}")
+        return []
+
+
+def load_files_to_dictionary(directory_path: str, file_list: list) -> dict:
+    """
+    Wczytuje zawartość plików tekstowych do słownika.
+    
+    Args:
+        directory_path (str): Ścieżka do katalogu z plikami
+        file_list (list): Lista nazw plików do wczytania
+        
+    Returns:
+        dict: Słownik gdzie kluczem jest nazwa pliku, a wartością jego zawartość jako string
+    """
+    files_dictionary = {}
+    
+    try:
+        for filename in file_list:
+            full_path = os.path.join(directory_path, filename)
+            try:
+                with open(full_path, 'r', encoding='utf-8') as file:
+                    content = file.read()
+                    files_dictionary[filename] = content
+            except FileNotFoundError:
+                print(f"Nie znaleziono pliku: {filename}")
+            except Exception as e:
+                print(f"Błąd podczas wczytywania pliku {filename}: {e}")
+                
+        return files_dictionary
+    
+    except Exception as e:
+        print(f"Wystąpił błąd: {e}")
+        return {}
+
+# Przykład użycia:
+# directory = "/sciezka/do/katalogu/"
+# files = ["plik1.txt", "plik2.txt"]
+# result = load_files_to_dictionary(directory, files)
