@@ -1,5 +1,3 @@
-
-
 import json
 import os
 from openai import OpenAI
@@ -134,7 +132,35 @@ def load_files_to_dictionary(directory_path: str, file_list: list) -> dict:
         print(f"Wystąpił błąd: {e}")
         return {}
 
-# Przykład użycia:
-# directory = "/sciezka/do/katalogu/"
-# files = ["plik1.txt", "plik2.txt"]
-# result = load_files_to_dictionary(directory, files)
+
+def remove_extension(filename: str, extension: str) -> str:
+    """
+    Usuwa rozszerzenie z nazwy pliku.
+    
+    Args:
+        filename (str): Nazwa pliku
+        extension (str): Rozszerzenie do usunięcia (np. '.txt')
+        
+    Returns:
+        str: Nazwa pliku bez rozszerzenia
+    """
+    # Upewnij się, że rozszerzenie zaczyna się od kropki
+    if not extension.startswith('.'):
+        extension = '.' + extension
+        
+    # Jeśli nazwa pliku kończy się danym rozszerzeniem, usuń je
+    if filename.lower().endswith(extension.lower()):
+        return filename[:-len(extension)]
+    
+    return filename
+
+
+
+def do_embedding(text : str):
+    client = OpenAI()
+    result =client.embeddings.create(
+        model="text-embedding-3-small",
+        input=text,
+        encoding_format="float"
+    )
+    return result
