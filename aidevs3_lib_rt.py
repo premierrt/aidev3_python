@@ -156,11 +156,19 @@ def remove_extension(filename: str, extension: str) -> str:
 
 
 
-def do_embedding(text : str):
+def do_embedding(text: str):
     client = OpenAI()
-    result =client.embeddings.create(
+    response = client.embeddings.create(
         model="text-embedding-3-small",
         input=text,
         encoding_format="float"
     )
-    return result
+
+    # Zwróć tablicę embedding
+    embedding = response.data[0].embedding
+   # print (embedding)
+    return embedding
+
+
+
+

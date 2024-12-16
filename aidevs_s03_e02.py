@@ -23,11 +23,12 @@ raport_file_path="/home/rafal/Pobrane/pliki_z_fabryki_2/do-not-share"
 def populateQdrantDB(client, embedning_results_dict, oryginal_texts, collection_name):
     points = []
     for idx, ((file_name_embedding, value1), (file_name_oryginal_text, value2)) in enumerate(zip(embedning_results_dict.items(), oryginal_texts.items())):
+        vector_data = value1  # Upewnij się, że to jest poprawne
         points.append(
             PointStruct(
                 id=idx,
-                vector=value1['embedding'],
-                payload={"text": value2, "data_raportu": remove_extension (file_name_oryginal_text)}
+                vector=vector_data,  # Użyj wektora jako listy float
+                payload={"text": value2, "data_raportu": remove_extension(file_name_oryginal_text, ".txt")}
             )
         )
 
@@ -45,7 +46,10 @@ def embed_all_texts(slownik: dict):
     embeddings = {}
     for filename, text in slownik.items():
         embedding_result = do_embedding(text)  # Wywołanie metody do_embedding dla każdej wartości
-        embeddings[filename] = embedding_result  # Przechowywanie wyników w nowym słowniku
+        print (embedding_result)
+        print ("=====")
+        embeddings[filename] = embedding_result
+ # Przechowywanie wyników w nowym słowniku
     return embeddings
 
 
@@ -54,5 +58,6 @@ if __name__ == "__main__":
     fileNames = get_files_by_extension(raport_file_path, ".txt")
     slownik = load_files_to_dictionary(raport_file_path, fileNames)
     embeddings = embed_all_texts(slownik)  # Wywołanie funkcji do embeddingu
-    collection_name="aidev3_s03e02"
+    collection_name="aidev3_s03e02_test"
+    print (embeddings)
     populateQdrantDB(client, embeddings, slownik, collection_name)  # Przekazywanie wyników do funkcji populateQdrantDB
