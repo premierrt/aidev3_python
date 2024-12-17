@@ -195,4 +195,13 @@ def do_embedding(text: str):
 
 
 
-
+def read_file_content(file_path):
+    """Wczytuje zawartość pliku tekstowego i zwraca ją jako string."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+        return content
+    except FileNotFoundError:
+        return f"Plik '{file_path}' nie został znaleziony."
+    except Exception as e:
+        return f"Wystąpił błąd: {str(e)}"
