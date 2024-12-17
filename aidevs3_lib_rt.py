@@ -49,6 +49,30 @@ def ask_gpt_json_format(system_prompt, question):
     return res
 
 
+def ask_gpt_function_calling(system_prompt, question, tools):
+    print ("============================================")
+    print (question)
+    print (system_prompt)
+    client = OpenAI()
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        temperature=0.2,
+        messages=[{
+            "role": "system",
+            "content": system_prompt
+        },
+        {
+            "role": "user",
+            "content": question
+        }],
+        tools=tools,
+    )
+    res = response.choices[0].message.tool_calls[0]
+    print (res)
+    return res
+
+
+
 def send_answer(object_data, task_name):
     answer_url = "https://centrala.ag3nts.org/report"
     api_key= "c39a5c87-ce98-4292-8db1-8c3af9c1d566"
