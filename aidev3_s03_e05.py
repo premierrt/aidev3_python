@@ -1,4 +1,5 @@
 import requests
+import json
 from aidevs3_lib_rt import *
 
 def send_api_request(api_key, query):
@@ -37,18 +38,34 @@ def fetch_and_save_table_data(api_key, table_name):
     result = send_api_request(api_key, select_statement)
     resp = result.get("reply")
     
-    # Zapisz dane do pliku
-    with open(f"{table_name}.txt", "w") as file:
-        file.write(str(resp))  # Zapisz odpowiedź jako tekst
-    print(f"Dane zapisane do pliku: {table_name}.txt")
+    # Zapisz dane do pliku w formacie JSON
+    with open(f"{table_name}.json", "w") as file:
+        json.dump(resp, file)  # Użyj json.dump() do zapisu w formacie JSON
+    print(f"Dane zapisane do pliku: {table_name}.json")
+
+
+def find_name(users, name) :
+    for user in users:
+        if user["username"] == name :
+            return user["id"]
 
 # Przykład użycia
 if __name__ == "__main__":
     api_key = "c39a5c87-ce98-4292-8db1-8c3af9c1d566"
     
-    # Wywołanie nowej funkcji
-    fetch_and_save_table_data(api_key, "users")   
-    fetch_and_save_table_data(api_key, "connections")
+    # Wczytanie danych do plików
+    # fetch_and_save_table_data(api_key, "users")   
+    # fetch_and_save_table_data(api_key, "connections")
 
+    users = load_json_from_file ("users.json")
+    print (users)
 
- 
+    connections = load_json_from_file ("connections.json")
+
+    rafal_id = find_name(users, "Rafał")
+    barbara_id = find_name(users, "Barbara")
+
+    print(rafal_id, barbara_id)
+
+    
+

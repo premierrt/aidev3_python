@@ -205,3 +205,15 @@ def read_file_content(file_path):
         return f"Plik '{file_path}' nie został znaleziony."
     except Exception as e:
         return f"Wystąpił błąd: {str(e)}"
+
+def load_json_from_file(file_name):
+    try:
+        with open(file_name, "r") as file:
+            data = json.load(file)  # Wczytaj zawartość jako JSON
+        return data
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        return {
+            "error": "Failed to load JSON",
+            "details": str(e)
+        }
+
