@@ -1,5 +1,8 @@
+import base64
+import io
 import json
 import os
+from PIL import Image
 from openai import OpenAI
 import requests
 
@@ -217,4 +220,34 @@ def load_json_from_file(file_name):
             "error": "Failed to load JSON",
             "details": str(e)
         }
+    
+def analyze_image_url(image_url, userPrompt):
+    client = OpenAI()
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o",  
+            temperature=0.1,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", 
+                         "text": userPrompt
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": image_url
+                            }
+                        }
+                    ]
+                }
+            ],
+            max_tokens=300
+        )
+        
+        return response.choices[0].message.content
+        
+    except Exception as e:
+        return f"Wystąpił błąd: {str(e)}"
 

@@ -1,5 +1,5 @@
 from aidevs3_lib_rt import *
-
+import re
 
 # 1. Wysyłam do LLM message z api w celu wyciągnięcia nazw fotek.
 # 2. Wysyłam fotki do LLM w celu zdefiniowania jaka operacja ma być na nich wykonana (jedna z 3 lub nic jeżeli fota jest dobra).
@@ -56,7 +56,49 @@ def get_file_url_mock():
     }"""
     return json.loads(mock_resp)
 
+
+def ocen_obrazek_w_gpt(image_url) :
+    user_promtp_to_eval_picture = """Jesteś asystentem AI, który analizuje jakość obrazów przesłanych przez użytkownika i zwraca odpowiedź, opisującą jaką operację na obrazie należy wykonać. Stosuj  się do następujących wskazówek.
+
+    ### Goal
+    Przeanalizuje dokładnie jakość przesłanego przez użytkownika obrazu i zdecyduj która operację na obrazie należy wykonać, aby poprawić jego jakość. Jedyne możliwe opcje to:
+    REPAIR, DARKEN ,BRIGHTEN 
+
+    ###Rules
+    Jeśli obraz zawiera szumy/glitche zwróć REPAIR 
+    Jeśli obraz jest za ciemny zwróć BRIGHTEN
+    Jeśli obraz jest za jasny zwróć DARKEN
+    Jeśli nie wiesz co odpowiedzieć, odpowiedź ERROR.
+
+    ### Response Format
+    Odpowiadaj zawsze tylko 1 słowem."""
+
+
+    resp = analyze_image_url( image_url,user_promtp_to_eval_picture)
+    return resp
+
+
+def znajdz_nazwe_pliku_re(text ):
+    # Wyrażenie regularne
+    pattern = r'\b\w+\.PNG\b'
+
+    # Wyszukiwanie nazwy pliku
+    match = re.search(pattern, text, re.IGNORECASE)
+    if match:
+        print(f"Znaleziono nazwę pliku: {match.group()}")
+        return match.group()
+    else:
+        print("Nie znaleziono pliku .PNG")
+        return ""
+
 if __name__ == "__main__":
-    url_tab = get_file_url_mock()
-    print (url_tab)
-    
+#     url_tab = get_file_url_mock()
+#    # print (url_tab)
+#     pierwszy_obraz = url_tab.get('urls')[0]
+#     print (pierwszy_obraz  )
+#     res = ocen_obrazek_w_gpt(pierwszy_obraz["file_url"])
+#     print(res)
+    answer = send_answer("REPAIR IMG_559.PNG", "photos")
+    resp_message = answer['message']
+    print (resp_message)
+    print (znajdz_nazwe_pliku_re (resp_message) )
