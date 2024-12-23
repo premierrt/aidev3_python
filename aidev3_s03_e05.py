@@ -51,7 +51,10 @@ def find_name(users, name) :
         if user["username"] == name :
             return user["id"]
         
-
+def find_by_id(users, id) :
+    for user in users:
+        if user["id"] == id:
+            return user["username"]
 
 def find_shortest_path(json_data, start_id, end_id):
     # Budowanie grafu z danych JSON
@@ -108,5 +111,4 @@ if __name__ == "__main__":
     else:
         print(f"Brak ścieżki od {start_node} do {end_node}")
 
-        
-
+  

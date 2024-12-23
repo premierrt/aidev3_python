@@ -87,6 +87,7 @@ def send_answer(object_data, task_name):
     # Print the response from the server
     print("Status Code:", response.status_code)
     print("Response Body:", response.text)
+    return response.json()
 
 
 def get_files_by_extension(directory_path: str, extension: str) -> list:
