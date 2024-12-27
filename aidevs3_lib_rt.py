@@ -273,3 +273,39 @@ def analyze_image_url(image_url, userPrompt):
     except Exception as e:
         return f"Wystąpił błąd: {str(e)}"
 
+
+def analyze_image_list_url(image_url_list, userPrompt):
+    client = OpenAI()
+    try:
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", 
+                     "text": userPrompt
+                    }
+                ]
+            }
+        ]
+        
+        # Dodaj każdy URL z listy do wiadomości
+        for image_url in image_url_list:
+            messages[0]["content"].append({
+                "type": "image_url",
+                "image_url": {
+                    "url": image_url
+                }
+            })
+
+        response = client.chat.completions.create(
+            model="gpt-4o",  
+            temperature=0.1,
+            messages=messages,
+            max_tokens=300
+        )
+        
+        return response.choices[0].message.content
+        
+    except Exception as e:
+        return f"Wystąpił błąd: {str(e)}"
+

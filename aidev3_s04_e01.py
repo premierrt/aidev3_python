@@ -208,6 +208,11 @@ if __name__ == "__main__":
     init_prompt =f"Oto zdjęcie {pierwszy_obraz}. Sprawdź czy wymaga poprawienia "
     action_response =init_prompt
 
+    #############################################################################################################
+    # mózg- czyli kod ktory planuje akcje -funkcja plan (user_question) a nastepnie wykonuje to, co zaplanowala ->
+    # funkcja execute(json_response_z_llm), gdzie json_response_z_llm jest json z nazwa funkcji do wywolania 
+    # ktora zwrocil prompt z funckji plan
+    ############################################################################################################
     while action_response != "DONE":
         nazwa_pliku = znajdz_nazwe_pliku_re( action_response)
         action =plan(action_response)
