@@ -51,6 +51,28 @@ def ask_gpt_json_format(system_prompt, question):
     print ("================================================")
     return res
 
+def ask_gpt_json_format(model, system_prompt, question):
+    print ("============================================")
+    print (question)
+    client = OpenAI()
+    response = client.chat.completions.create(
+        model=model,
+        temperature=0.2,
+        response_format={ "type": "json_object" },
+        messages=[{
+            "role": "system",
+            "content": system_prompt
+        },
+        {
+            "role": "user",
+            "content": question
+        }]
+    )
+    res = response.choices[0].message.content
+    print (res)
+    print ("================================================")
+    return res
+
 
 def ask_gpt_function_calling(system_prompt, question, tools):
     print ("============================================")
