@@ -63,14 +63,17 @@ def ocen_obrazek_w_gpt( picture_name) :
     user_promtp_to_eval_picture = f"""Jesteś asystentem AI, który analizuje jakość obrazów przesłanych przez użytkownika i zwraca odpowiedź, opisującą jaką operację na obrazie należy wykonać. Stosuj  się do następujących wskazówek.
 
     ### Goal
-    Przeanalizuje dokładnie jakość przesłanego przez użytkownika obrazu i zdecyduj która operację na obrazie należy wykonać, aby poprawić jego jakość. Jedyne możliwe opcje to:
+    Przeanalizuje dokładnie jakość przesłanego przez użytkownika obrazu i zdecyduj która operację na obrazie należy wykonać, aby poprawić jego jakość. Jeśli zdjęcie wymaga poprawy wybierz jedną z opcji:
     rozjaśnienie, przyciemnienie albo naprawa szumów/glitch'y
 
     ### Response Format
     Odpowiadaj zwięźle jaką operacją na zdjęciu należy wykonać. 
+    Jeśli nie wiesz jaką operację wykonać odpowiedz ERROR.
     Załączaj w treści odpowiedzi nawzę obrazka = {picture_name}
+    Wytłumacz swój tok rozumowania
     """
     resp = analyze_image_url( image_url,user_promtp_to_eval_picture)
+    print ("=========Funkcja ocen_obrazek_gpt " +resp)
     return resp
 
 
@@ -88,7 +91,7 @@ def znajdz_nazwe_pliku_re(text ):
         print("Nie znaleziono pliku .PNG")
         return ""
     
-def zmodyfikuj_foto_w_centrali(uesr_prmompt):
+def zmodyfikuj_foto_w_centrali(picture_name, uesr_prmompt):
     system_prompt=""" 
     Jesteś analizatorem treści przesłanej przez użytkownika.
     ###Goal
@@ -106,28 +109,30 @@ def zmodyfikuj_foto_w_centrali(uesr_prmompt):
     """
     resp = ask_gpt(system_prompt,uesr_prmompt)
     print ("funkcja zmodyfikuj_foto_w_centali zwrócila ", resp)
-    resp_z_centrali =modyfikuj_foto (resp)
+    resp_z_centrali =modyfikuj_foto (picture_name, resp)
     return resp_z_centrali
 
-def modyfikuj_foto(operacja, picture_name):
-    payload = operacja + picture_name
+def modyfikuj_foto( picture_name, operacja):
+    payload = operacja +" "+ picture_name
     answer = send_answer(payload, "photos")
+    resp_message = answer['message']
     print ("funkcja modyfikuj_foto z parametrami zwrócila ", operacja, payload, answer)
-    return answer
+    return resp_message
 
 
 def plan(userPrompt):
     understaning_prompt_system_message = """
        From now on, you will function as a Task Query Analyzer and Splitter, focusing exclusively on the user's most recent message. 
-    Your primary role is to interpret the latest user request about pictures and divide it into comprehensive subquery choosing one of following actions:  modify, evaluate or save picture.    
+    Your primary role is to interpret the latest user request about pictures and divide it into comprehensive subquery choosing one of following actions:  modify, evaluate picture, or done one user setniment express that picture is ok.    
     <prompt_objective>
-    Analyze the most recent user input about tasks and split it into detailed subquery for modifying, evaluating quality, or saving the picture, preserving all relevant information from this specific query. Provide thorough reasoning in the "_thinking" field.
+    Analyze the most recent user input about tasks and split it into detailed subquery for modifying, evaluating quality, or just for answering done if user is fine with the picture, preserving all relevant information from this specific query. Provide thorough reasoning in the "_thinking" field.
     Always respond with a valid JSON object without markdown blocks.
     </prompt_objective>
 
     <prompt_rules>
     - Always answer with one next best action
-    - Choose save option only when user explictly says the job is done
+    - Choose done option \ when user explictly says the job is done or he is happy with the picture
+    - Choose evalaute if user says he did modification on a picture
     - Focus exclusively on the user's most recent message
     - Ignore any previous context or commands that aren't part of the latest input
     - Analyze the entire latest user input to extract all task-related information
@@ -151,30 +156,29 @@ def plan(userPrompt):
     Always respond with this JSON structure:
     {
     "_thinking": "Detailed explanation of your interpretation process, consideration of options, reasoning for decisions, and any assumptions made",
-    "modify": "(string) Comprehensive query for pricture that need to be modyfied, or None if not applicable",
-    "evaluate": "(string) Comprehensive query for pricture to be quality evaluated, or None if not applicable",
-    "save": "(string) Comprehensive query for pricture to be saved when user says the picure is ok and the job is done, or None if not applicable",
+    "modify": "(string) Comprehensive query for pricture that need to be modyfied, or null  if not applicable",
+    "evaluate": "(string) Comprehensive query for pricture to be quality evaluated, or null if not applicable",
+    "done": "(string) Comprehensive query for pricture to be saved when user says the picure is ok and the job is done, or null if not applicable",
     "
     }
     </output_format>
     
     """
-    response =ask_gpt_json_format("gpt-4o",understaning_prompt_system_message, userPrompt)
+    response =ask_gpt_json_format_model("gpt-4o",understaning_prompt_system_message, userPrompt)
     print("######====",response)
     return response
 
-def zapisz_obraz(nazwa_pliku,lista):
-    list.append (  nazwa_pliku)
-    return lista
+def zapisz_obraz(nazwa_pliku):
+    return nazwa_pliku
 
 
-def execute (planned_acction):
-    nazwa_pliku = znajdz_nazwe_pliku_re(json.dumps(planned_acction))
-    if planned_acction.get("modify") is not None:
-        resp =zmodyfikuj_foto_w_centrali(nazwa_pliku)
-    elif planned_acction.get("evaluate") is not None:
+def execute (nazwa_pliku, planned_acction_json ):
+    planned_acction = json.loads(planned_acction_json)
+    if planned_acction.get("modify")  is not None:
+        resp =zmodyfikuj_foto_w_centrali(nazwa_pliku, planned_acction.get("modify"))
+    elif planned_acction.get("evaluate")  is not None:
         resp =ocen_obrazek_w_gpt(nazwa_pliku)
-    elif planned_acction.get("save") is not None:
+    elif planned_acction.get("done")  is not None:
         zapisz_obraz(nazwa_pliku)
         resp="DONE"
     return resp
@@ -188,7 +192,7 @@ if __name__ == "__main__":
     print (url_tab)
 
     
-    pierwszy_obraz = url_tab.get('urls')[0].get("file_name")
+    pierwszy_obraz = url_tab.get('urls')[3].get("file_name")
     print (pierwszy_obraz  )
 #     res = ocen_obrazek_w_gpt(pierwszy_obraz["file_url"])
 #     print(res)
@@ -205,8 +209,10 @@ if __name__ == "__main__":
     action_response =init_prompt
 
     while action_response != "DONE":
+        nazwa_pliku = znajdz_nazwe_pliku_re( action_response)
         action =plan(action_response)
-        action_response =execute(action)
+        action_response =execute(nazwa_pliku, action)
+    print(nazwa_pliku)
 
-
+### dodac obaługe zdjecia "dobrego" IMG_1444.PNG -> https://centrala.ag3nts.org/dane/barbara/IMG_1444.PNG
  

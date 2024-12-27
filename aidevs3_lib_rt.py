@@ -51,7 +51,7 @@ def ask_gpt_json_format(system_prompt, question):
     print ("================================================")
     return res
 
-def ask_gpt_json_format(model, system_prompt, question):
+def ask_gpt_json_format_model(model, system_prompt, question):
     print ("============================================")
     print (question)
     client = OpenAI()
