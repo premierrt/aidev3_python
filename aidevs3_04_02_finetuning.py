@@ -46,12 +46,13 @@ if __name__ == "__main__":
     print (result)
 
     system_prompt = "Classify data "
-    model= "moj_model_fine_tuned"
+    model= "ft:gpt-4o-mini-2024-07-18:personal:s04e02-02:AjXhkdXa"
 
+    #model = "gpt-4o-mini"
     corect_dasta = []
     for key, value in result.items():
         print (key, value)
-        res = ask_gpt_json_format_model(system_prompt, value,model)
+        res = ask_gpt_model(system_prompt, value,model)
         print (res)
         if (res == "1"):
             corect_dasta.append(key)
