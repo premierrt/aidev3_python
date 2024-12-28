@@ -232,6 +232,18 @@ def read_file_content(file_path):
     except Exception as e:
         return f"Wystąpił błąd: {str(e)}"
 
+def read_file_content_line(file_path):
+    """Wczytuje zawartość pliku tekstowego i zwraca ją jako listę linii."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.readlines()  # Zmiana na readlines() aby zwrócić listę linii
+        return content
+    except FileNotFoundError:
+        return [f"Plik '{file_path}' nie został znaleziony."]  # Zwracamy listę z komunikatem
+    except Exception as e:
+        return [f"Wystąpił błąd: {str(e)}"]  # Zwracamy listę z komunikatem
+
+
 def load_json_from_file(file_name):
     try:
         with open(file_name, "r") as file:
