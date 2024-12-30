@@ -109,3 +109,8 @@ links to subpages:
 /czescizamienne', '
 /portfolio', 
 '/uslugi']
+
+
+kontakt@softoai.whatever
+'https://banan.ag3nts.org/'
+ ISO 9001 oraz ISO/IEC 27001

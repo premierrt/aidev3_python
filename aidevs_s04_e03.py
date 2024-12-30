@@ -34,7 +34,7 @@ def znajdz_linki(url):
     return links
 
 def choose_subpage( link_list, user_question):
-    system_prompt = f"""Here are links to subpages on a webpage. Analyze them and user question and decide which subpage to go to find answer for uesr question. Retrun only one subpage. Answer only with subpage link.
+    system_prompt = f"""Here are links to subpages on a webpage. Analyze them and user question and decide which subpage to go to find answer for uesr question. Retrun only one subpage. Answer only with subpage link without chars " and '.
     links to subpages: {link_list}"""
     res = ask_gpt(system_prompt,user_question )
     logging.info ("==> choose_subpage: %s", res)
@@ -59,7 +59,7 @@ def find_answer_on_page(page_content, question):
     </prompt_rules>
 
     <output_format>
-    Response shortly for user prompt or null if you can not find the answer.
+    Response as short as possible for user prompt or null if you can not find the answer.
     """
     res = ask_gpt(system_prompt, question)
     logging.info("find_answer_on_page: %s", res)
@@ -89,6 +89,9 @@ if __name__ == "__main__":
     # ile =num_tokens_from_string("dupa srala i piredziala")
     # print (ile)
 
+
+
+###zmienić zeby szukal nie linkow a nazwy z linkow ...!!!!!!!!!!!
 
     odpowiedzi_dict ={}
 ### pętla głowna
