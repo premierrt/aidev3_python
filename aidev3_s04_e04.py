@@ -18,6 +18,11 @@ def api_where_am_i():
     return jsonify({"description": description})
 
 if __name__ == '__main__':
-        app.run(debug=True, port=8080)  # Zmiana portu na 8080
+        app.run(debug=True, port=51131)  # Zmiana portu na 8080
 
 # curl -X POST http://127.0.0.1:8080/where_am_i -H "Content-Type: application/json" -d '{"instruction": "tutaj instrukcja gdzie poleciał dron"}'
+# curl -X POST https://azyl-51131.ag3nts.org/where_am_i -H "Content-Type: application/json" -d '{"instruction": "tutaj instrukcja gdzie poleciał dron"}'
+
+
+# https://azyl-51131.ag3nts.org/where_am_i
+# ssh -R 51131:localhost:51131 agent11131@azyl.ag3nts.org -p 5022

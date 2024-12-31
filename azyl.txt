@@ -1,4 +1,20 @@
 
+
+AZYL: agent11131 / azyl.ag3nts.org / port: 5022	
+
+P3RhH2W489
+ssh -R 51131:localhost:51131 agent11131@azyl.ag3nts.org -p 5022
+
+
+Twoj numer portu to: 51131
+---------------------------------------------------------------------
+Spraw, aby Twoja aplikacja słuchała na tym porcie.
+Aplikacja będzie dostępna np. pod 
+https://azyl-51131.ag3nts.org
+
+
+
+
 AI_Dev
 7d
 
