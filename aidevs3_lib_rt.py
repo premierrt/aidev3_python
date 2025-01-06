@@ -353,4 +353,36 @@ def analyze_image_list_url(image_url_list, userPrompt):
         
     except Exception as e:
         return f"Wystąpił błąd: {str(e)}"
+    
+
+
+def analyze_image_base64(base64_image, userPrompt):
+    client = OpenAI()
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o",  
+            temperature=0.1,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", 
+                         "text": userPrompt
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                 "url": f"data:image/jpeg;base64,{base64_image}",
+                            }
+                        }
+                    ]
+                }
+            ],
+            max_tokens=400
+        )
+        
+        return response.choices[0].message.content
+        
+    except Exception as e:
+        return f"Wystąpił błąd: {str(e)}"
 
