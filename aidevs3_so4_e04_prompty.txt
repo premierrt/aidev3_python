@@ -1,0 +1,121 @@
+Przeanalizuj dokladnie grafikę. Jest to mapa. jest kwadratowa.  Ma wymiar 4x4. Czyli wymiary mapy to  4 pola w rzędzie i  4 pola kolumny. Napisz co znajduje się w każdym polu na obrazku. Odpowiadaj 1 słowem dla 1 pola. W odpowiedzi używaj współrzędnych pola na mapie do którego podajesz opis.  podaj który rząd opisujesz i która kolumnę.
+Rząd numer 1 znajduje się u góry mapy.  Rząd numer 2 znajduje się poniżej pierwszego.
+Kolumna numer 1 znajduje się po lewej stronie mapy. 
+
+###Przykład:
+Dla pola w rzedzie 2 w 2 kolumnie odpowiedz: [2,2 ] =wiatrak
+
+
+Przeanalizuj dokladnie grafikę. Jest to mapa. jest dwumymiarowa. jest kwadratowa. Jest podzielona liniami prostymi na mniejszy pola. Te pola to kwadraty.  Wymiary mapy to  4 pola wysokości  i  4 pola szerokości. 
+Napisz co znajduje się w każdym polu na obrazku. W odpowiedzi  podaj który rząd opisujesz i która kolumnę oraz opis w jaki sposób nadałeś numeracje rzędu i kolumny.
+Rząd numer 1 znajduje się u góry mapy.  Rząd numer 2 znajduje się poniżej pierwszego.
+Kolumna numer 1 znajduje się po lewej stronie mapy. Kolumna numer 2 znajduje się obok kolumny numer 1. 
+Przy każdy polu odpowiedz dlaczego wybrałeś taką numerację wiersza i kolumny.
+
+
+
+Sonet:
+Rozumiem. Przeanalizuję mapę zgodnie z podanym systemem numeracji, gdzie rzędy liczone są od góry (1-4), a kolumny od lewej strony (1-4). Opiszę zawartość każdego pola:
+Rząd 1:
+
+(1,1) - Ikona pinezki/znacznika lokalizacji. Wybrałem taką numerację, bo to pole znajduje się w pierwszym rzędzie od góry i pierwszej kolumnie od lewej.
+(1,2) - Trawa/zboże. Pole w pierwszym rzędzie od góry, druga kolumna od lewej.
+(1,3) - Pojedyncze drzewo z pełną koroną. Pole w pierwszym rzędzie, trzecia kolumna.
+(1,4) - Dom z dwuspadowym dachem i oknami. Pole w pierwszym rzędzie, ostatnia kolumna.
+
+Rząd 2:
+
+(2,1) - Trawa/zboże. Drugie pole od góry, pierwsza kolumna od lewej.
+(2,2) - Wiatrak z czterema skrzydłami. Drugie pole od góry, druga kolumna.
+(2,3) - Trawa/zboże. Drugie pole od góry, trzecia kolumna.
+(2,4) - Trawa/zboże. Drugie pole od góry, czwarta kolumna.
+
+Rząd 3:
+
+(3,1) - Trawa/zboże. Trzeci rząd od góry, pierwsza kolumna.
+(3,2) - Trawa/zboże. Trzeci rząd od góry, druga kolumna.
+(3,3) - Skały/głazy. Trzeci rząd od góry, trzecia kolumna.
+(3,4) - Dwa drzewa z pełnymi koronami. Trzeci rząd od góry, czwarta kolumna.
+
+Rząd 4:
+
+(4,1) - Góry/pasmo górskie. Ostatni rząd od góry, pierwsza kolumna.
+(4,2) - Góry/pasmo górskie. Ostatni rząd od góry, druga kolumna.
+(4,3) - Samochód (widok z góry). Ostatni rząd od góry, trzecia kolumna.
+(4,4) - Jaskinia lub wejście do tunelu. Ostatni rząd od góry, ostatnia kolumna.
+
+Ten system numeracji jest logiczny, bo:
+
+Numeracja od góry do dołu jest naturalna dla czytania map
+Numeracja od lewej do prawej jest zgodna z kierunkiem czytania
+System (rząd, kolumna) jest standardowym sposobem opisywania położenia na siatkach dwuwymiarowych
+
+
+#####
+
+Sonet 
+#####
+Przeanalizuj dokladnie grafikę. Jest to mapa. jest dwumymiarowa. jest kwadratowa. Jest podzielona liniami prostymi na mniejszy pola. Te pola to kwadraty.  Wymiary mapy to  4 pola wysokości  i  4 pola szerokości. 
+Napisz 1 słowem co znajduje się w każdym polu na obrazku. W odpowiedzi  podaj który rząd opisujesz i która kolumnę.
+Rząd numer 1 znajduje się u góry mapy.  Rząd numer 2 znajduje się poniżej pierwszego.
+Kolumna numer 1 znajduje się po lewej stronie mapy. Kolumna numer 2 znajduje się obok kolumny numer 1. 
+Przykład odpowiedzi:
+[1, 4] = dom
+
+
+Analizuję zawartość każdego pola na mapie, podając lokalizację [rząd, kolumna] i zawartość:
+[1, 1] = znacznik
+[1, 2] = trawa
+[1, 3] = drzewo
+[1, 4] = dom
+[2, 1] = trawa
+[2, 2] = wiatrak
+[2, 3] = trawa
+[2, 4] = trawa
+[3, 1] = trawa
+[3, 2] = trawa
+[3, 3] = skały
+[3, 4] = drzewa
+[4, 1] = góry
+[4, 2] = góry
+[4, 3] = samochód
+[4, 4] = jaskinia
+
+
+Zakładając ze będę poruszał sie po mapie. Startuje w punkcie [1,1]. Gdzie znajdę się po ruchu: 2 pola w dół i 1 pole w prawo?EditRozwiążmy to krok po kroku:
+
+Start: [1,1] (znacznik)
+Ruch 2 pola w dół: [3,1] (trawa)
+Ruch 1 pole w prawo: [3,2] (trawa)
+
+Więc znajdziesz się w punkcie [3,2], gdzie na mapie jest trawa.
+
+
+=============
+Prompt do odpowiadania:
+1. Meta prompt z openai i opis:
+I need prompt that base on user input simulate drone fyling above two dimensional map. User will give commands simulating move of drone and the answer should return where drone landed. user commands are in natural language, so they should be translated to two dimesional mathematical model.
+The two dimensional map consists of 4 rows and 4 columns. Starting point for drone movement is 1 row and 1 columns which is situated in upper left corner of the map.
+
+
+odpowiedzc:
+Simulate the movement of a drone across a two-dimensional 4x4 map based on user commands in natural language, determining the final position of the drone.
+
+The initial position of the drone is at row 1, column 1, located at the upper left corner of the map. Translate user commands into movements on this grid and calculate the final landing position of the drone.
+
+# Steps
+
+1. Start from position (1,1).
+2. Translate each user command from natural language into a directional move on the grid (e.g., "move up", "go down two spaces").
+3. Apply each movement to the current position, ensuring movers stay within the bounds of the map.
+4. Determine the final position of the drone.
+
+# Output Format
+
+Provide the final position as a coordinate pair [ column, raw]. 
+
+# Example
+
+**Input:** "Move twice to the right, then down one."
+
+**Output:** [3,  2]
