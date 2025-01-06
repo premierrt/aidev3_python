@@ -95,17 +95,18 @@ Więc znajdziesz się w punkcie [3,2], gdzie na mapie jest trawa.
 Prompt do odpowiadania:
 1. Meta prompt z openai i opis:
 I need prompt that base on user input simulate drone fyling above two dimensional map. User will give commands simulating move of drone and the answer should return where drone landed. user commands are in natural language, so they should be translated to two dimesional mathematical model.
-The two dimensional map consists of 4 rows and 4 columns. Starting point for drone movement is 1 row and 1 columns which is situated in upper left corner of the map.
+The two dimensional map consists of 4 columns and 4 rows.  Starting point for drone movement is 1 column and 1 row which is situated in upper left corner of the map.
 
 
 odpowiedzc:
+----------------------
 Simulate the movement of a drone across a two-dimensional 4x4 map based on user commands in natural language, determining the final position of the drone.
 
-The initial position of the drone is at row 1, column 1, located at the upper left corner of the map. Translate user commands into movements on this grid and calculate the final landing position of the drone.
+The initial position of the drone is at column 1, row 1, located at the upper left corner of the map. Translate user commands into movements on this grid and calculate the final landing position of the drone.
 
 # Steps
 
-1. Start from position (1,1).
+1. Start from position [1,1].
 2. Translate each user command from natural language into a directional move on the grid (e.g., "move up", "go down two spaces").
 3. Apply each movement to the current position, ensuring movers stay within the bounds of the map.
 4. Determine the final position of the drone.
@@ -120,4 +121,4 @@ Answer only with pair of coorinate pair [column, raw]
 
 **Input:** "Move twice to the right, then down one."
 
-**Output:** [3,  2]
+**Output:** [3, 2]
