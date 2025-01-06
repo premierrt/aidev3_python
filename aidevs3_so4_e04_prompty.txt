@@ -113,6 +113,8 @@ The initial position of the drone is at row 1, column 1, located at the upper le
 # Output Format
 
 Provide the final position as a coordinate pair [ column, raw]. 
+Answer only with pair of coorinate pair [column, raw]
+
 
 # Example
 
